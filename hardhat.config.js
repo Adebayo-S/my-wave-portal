@@ -17,14 +17,20 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 
- require("@nomiclabs/hardhat-waffle");
+ require('@nomiclabs/hardhat-waffle');
+ require('dotenv').config();
  
-module.exports = {
-  solidity: "0.8.0",
-  networks: {
-    rinkeby: {
-      url: 'https://eth-rinkeby.alchemyapi.io/v2/AUgnfsggXTdlFtTlMvgNi57M5v-MMZLi',
-      accounts: ['bf5f9d93f50a0fe7039298ce5eb28032b74cee38f617431edf8248d454df4d9b'],
-    },
-  },
-};
+ module.exports = {
+   solidity: '0.8.0',
+   networks: {
+     rinkeby: {
+       url: process.env.STAGING_ALCHEMY_KEY,
+       accounts: [process.env.PRIVATE_KEY],
+     },
+     mainnet: {
+       chainId: 1,
+       url: process.env.PROD_ALCHEMY_KEY,
+       accounts: [process.env.PRIVATE_KEY],
+     },
+   },
+ };
